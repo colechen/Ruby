@@ -1,0 +1,13 @@
+<tr>
+  <td><%= f.select(:role_id, Role.all.map {|r| [r.name, r.id]}, {:include_blank => true}, :class => "rolepicker") %></td>
+  <td><%= f.select(
+    :user_id,
+    (f.object.role_id.blank?) ? {} : Role.find(f.object.role_id).users.map {|u| [u.name, u.id]},
+    {:include_blank => true},
+    :class => "userpicker"
+  ) %></td>
+  <td><%= f.date_field(:start_date) %></td>
+  <td><%= f.date_field(:end_date) %></td>
+  <td><%= f.number_field(:workload, :step => :any, :min => 0, :max => 1) %></td>
+  <td><%= link_to_remove_fields("Remove", f) %></td>
+</tr>

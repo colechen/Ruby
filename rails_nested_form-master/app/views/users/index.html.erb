@@ -1,0 +1,28 @@
+<%= link_to("To Projects", projects_path) %>
+
+<h1>Users</h1>
+
+<%= link_to("Create User", new_user_path) %>
+
+<table>
+  <thead>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </thead>
+
+  </tbody>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td>
+        <%= link_to("Edit", edit_user_path(user)) %>
+        <%= link_to("Delete", user_path(user), :method => :delete) %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

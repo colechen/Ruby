@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th><%= f.label(:name) %></th>
+    <td><%= f.text_field(:name) %></td>
+  </tr>
+  <tr>
+    <th><%= f.label(:email) %></th>
+    <td><%= f.text_field(:email) %></td>
+  </tr>
+  <tr>
+    <th><%= f.label(:role_ids, "Roles") %></th>
+    <td><%= f.collection_check_boxes(:role_ids, Role.all, :id, :name) %></td>
+  </tr>
+</table>

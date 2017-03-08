@@ -1,0 +1,12 @@
+<%= link_to("<< Projects", projects_path) %>
+
+<h2>Create Project</h2>
+
+<%= form_for @project do |f| %>
+  <h3>Basic</h3>
+  <table>
+    <%= render('form', :f => f) %>
+  </table>
+
+  <%= f.submit() %>
+<% end %>
