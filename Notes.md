@@ -1,6 +1,6 @@
-540385. rails new simple_cms -d mysql
+540385 rails new simple_cms -d mysql
 
-540386. ```ruby
+540386 ```ruby
 	mysql -u root -p
 	CREATE DATABASE simple_cms_development;
 	CREATE DATABASE simple_cms_test;
@@ -8,10 +8,10 @@
 	GRANT ALL PRIVILEGES ON simple_cms_test.* TO 'rails_user'@'localhost' IDENTIFIED BY 'secretpassword';
 	exit;
 	```
-540387. database.yml -> specified the username and password
+540387 database.yml -> specified the username and password
 	Test Connection: rails db:schema:dump #get all the definition of database db/schema.rb
 
-540389. rails generate controller demo index
+540389 rails generate controller demo index
 
 540391. Simple Route -> get "demo/index"
 	Simple Match Route -> match "demo/index", :to => "demo#index", :via => :get
