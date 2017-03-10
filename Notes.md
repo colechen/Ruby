@@ -13,11 +13,11 @@
 540389. rails generate controller demo index
 
 540391. Simple Route -> get "demo/index"
-		Simple Match Route -> match "demo/index", :to => "demo#index", :via => :get
-		Default Route -> get ':controller(/:action(/:id))'
-		Default Match Route -> match ':controller(/:action(/:id))', :via =? :get
-		Root Route: root "demo#index"
-		Root Match Route: match "/", :to => "demo#index", :via => :get 
+	Simple Match Route -> match "demo/index", :to => "demo#index", :via => :get
+	Default Route -> get ':controller(/:action(/:id))'
+	Default Match Route -> match ':controller(/:action(/:id))', :via =? :get
+	Root Route: root "demo#index"
+	Root Match Route: match "/", :to => "demo#index", :via => :get 
 
 540394. render(:template => 'demo/hello')
 		render('demo/hello') #if calling different controller, will need to specify demo
