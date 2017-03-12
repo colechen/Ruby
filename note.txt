@@ -17,7 +17,7 @@
 	Default Route -> get ':controller(/:action(/:id))'
 	Default Match Route -> match ':controller(/:action(/:id))', :via =? :get
 	Root Route: root "demo#index"
-	Root Match Route: match "/", :to => "demo#index", :via => :get 
+	Root Match Route: match "/", :to => "demo#index", :via => :get
 
 540394. render(:template => 'demo/hello')
 	render('demo/hello') #if calling different controller, will need to specify demo
@@ -50,8 +50,8 @@
 
 540398. <%= link_to(text, target) %> #link_to is a helper method
 	<%= link_to("demo/index") %>
-	<%= link_to('hello', {:controller => 'demo', :action => 'index'}) %> 
-	<%= link_to('hello', {:action => 'index'}) %> 
+	<%= link_to('hello', {:controller => 'demo', :action => 'index'}) %>
+	<%= link_to('hello', {:action => 'index'}) %>
 
 540399. Accessing Parameter Values -> params are always string
 	params[:id]
@@ -94,7 +94,7 @@
 			t.string "password", :limit => 40
 
 
-			t.timestamps 
+			t.timestamps
 			#t.datetime "created_at"
 			#t.datetime "updated_at"
 		end
@@ -234,7 +234,7 @@
 		where(:active => true)
 	end
 
-	scope :with_content_type, lambda {|ctype| 
+	scope :with_content_type, lambda {|ctype|
 		where(:content_type => ctype)
 	}
 
@@ -281,7 +281,7 @@
 	belongs_to :subject, { :optional => true }  #save without parent (subject_id)
 
 540428. For M:N, require a join table with two foreign keys (simple join)
-	
+
 	Project has_and_belongs_to_many :collaborators
 
 	#specify the join table name, otherwise, rails will use default naming convention
@@ -305,7 +305,7 @@
 
 	rails db:migrate
 
-	#section_edits will have two parents, can not use << to add, must add directly to #sections_edits table with specified 
+	#section_edits will have two parents, can not use << to add, must add directly to #sections_edits table with specified
 	#parent keys
 	me = AdminUser.find(1)
 	section = Section.create(:name => 'Section One', :position => 1)
@@ -313,8 +313,56 @@
 	edit.save
 	me.section_edits(true)   #reload from database
 
-540530. section.section_edits.map {|se| se.admin_user}
+540430. section.section_edits.map {|se| se.admin_user}
 
 	has_many :through
 	AdminUser has_many :section_edits
 	AdminUser has_many :sections, :through => :section_edits
+
+540435.
+	GET		  /subjects						 	  index			subjects_path
+	GET		  /subjects/:id				 	  show			subject_path(:id)
+	GET		  /subjects/new				 	  new				new_subject_path
+	POST	  /subjects						 	  create		subjects_path
+	GET		  /subjects/:id/edit			edit			edit_subject_path(:id)
+	PATCH	  /subjects/:id				 	  update		subject_path(:id)
+	GET		  /subjects/:id/delete		delete		delete_subject_path(:id)
+	DELETE	/subjects/:id						destroy		subject_path(:id)
+
+540440.
+	<%= form_for(@subject, :url => subject_path, :method => 'post') do |f| %>
+	<%= form_for(@subject) do |f| %>
+
+	#define form default value
+	def new
+		@subject = Subject.new({:name => 'default'})
+	end
+
+540445. Flash hash -> will only be accessible for one additional request
+	flash[:notice] = "The subject '#{@subject.name}' was created successfully"
+	flash[:error] = "Not enough access privileges"
+
+	<% if !flash[:notice].blank? %>
+		<div class="notice">
+			<%= flash[:notice] %>
+		</div>
+	<% end %>
+
+	.blank? check for nil and empty string
+
+540449. Layout
+	<%= yield %> #placed inside layout erb
+	layout 'admin' #placed inside controller
+
+540450. Partial Templates
+	<%= render(:partial => 'form', :locals => {:f => f}) %>
+	<%= render('form') %>
+
+540451. Text helpers
+	<%= word_wrap(text, :line_width => 30) %>
+	<%= simple_format(text) %>  #works on <p> and interpret /n as <br />
+	<%= truncate(text, :length => 28) %>
+	#pluralize
+	<% [0, 1, 2].each do |n| %>
+		<%= pluralize(n, 'product') %> found. <br />
+	<% end %>
