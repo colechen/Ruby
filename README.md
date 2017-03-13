@@ -47,6 +47,6 @@ mysql.server start
 ```
 To connect to MySQL, run:
 ```shell
-mysql -uroot
+mysql -u root
 ```
 For GUI, install [MySQL Workbench]. 
