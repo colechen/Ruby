@@ -17,22 +17,36 @@ gem update --system
 gem -v
 ```
 ### Install Bundler
-'' gem install bundler
-'' rbenv rehash
-'' bundle -v
+```shell
+gem install bundler
+rbenv rehash
+bundle -v
+```
 ### Install Rails
-'' gem install rails
-'' rbenv rehash
-'' rails -v
+```shell
+gem install rails
+rbenv rehash
+rails -v
+```
 ### Install MySQL
-'' brew install mysql
-'' mysql --version
+```shell
+brew install mysql
+mysql --version
+```
 MySQL is installed without a password.  To secure it, run:
-'' mysql_secure_installation
+```shell
+mysql_secure_installation
+```
 To start MySQL at login, run:
-'' brew services start mysql
+```shell
+brew services start mysql
+```
 To start MySQL manually each time, run:
-'' mysql.server start
+```shell
+mysql.server start
+```
 To connect to MySQL, run:
-'' mysql -uroot
+```shell
+mysql -uroot
+```
 For GUI, install [MySQL Workbench]. 
