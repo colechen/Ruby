@@ -366,3 +366,164 @@
 	<% [0, 1, 2].each do |n| %>
 		<%= pluralize(n, 'product') %> found. <br />
 	<% end %>
+
+540452. Number helpers
+	number_to_currency(34.5, :precision => 0, :unit => "kr", :format => "%n %u") #35 kr
+	number_to_percentage(34.5, :precision => 1, :separator => ',') #34,5%
+	number_with_precision(34.56789, :precision => 6) #34.567890
+	/ number_to_rounded
+	number_with delimiter(3456789, :delimiter => ' ') #3 456 789
+	/ number_to_delimited
+	number_to_human(123456789, :precision => 5) #123.46 Million
+	number_to_human_size(123456789, :precision => 2) #1.2 MB
+	number_to_phone(1234567890,
+		:area_code => true,
+		:delimiter => '',
+		:country_code => 1,
+		:extension => '321')   # +1 (123) 456 7890 x 321
+
+540453. Date and Time helpers
+	Time.now + 30.days - 23.minutes
+	30.days.ago
+	30.days.from_now
+	Time.now.now.last_year.end_of_month.beginning_of_day
+	datetime.strftime( format_string )
+	Time.now.strftime("%B %d, %Y %H:%M") # July 17, 2016 18:14
+	datetime.to_s( format_symbol )
+	Time.now.to_s(:long) # July 17, 2016 18:14
+
+	#DateTime Default Formats
+	:db 			"2016-01-09 13:36:29"
+	:number 		"20160109133629"
+	:time 			"13:36"
+	:short 			"09 Jan 13:36"
+	:long 			"January 09, 2016 13:36"
+	:long_ordinal	"January 9th, 2016 13:36"
+
+540454. Custom helpers
+	- defined under app/helpers/application_helper.rb
+		def status_tag(boolean, options={})
+			options[:true_text] ||= ''
+			options[:false_text] ||= ''
+
+			if boolean
+				content_tag(:span, options[:true_text], :class => 'status true')
+			else
+				content_tag(:span, options[:false_text], :class => 'status false')
+			end
+		end
+	- Use helper method: <%= status_tag(subject.visible) %>
+	- CSS are defined in app/views/layouts/admin.html.erb
+		<style>
+			span.status { display: block; width: 10px; height: 10px; margin: 0.25em auto;
+					padding: 0; border: 1px solid #000000; }
+			span.status.true { background: green; color: green; }
+			span.status.false { background: red; color: red; }
+		</style>
+
+540455. Sanitization helpers
+	- Cross-Site Scripting (XSS)
+	- Escape Methods: html_escape(), h(), raw(), html_safe
+	- Escape is by default, to turn off
+		<%= raw evil_string %>
+		<%= evil_string.html_safe %>
+	- Escape Out: strip_links(html), strip_tags(html), sanitize( html, options )
+		text = '<strong>Please</strong> visit <a href="http://example.com">us</a>.'
+		strip_links(text)
+		# <strong>Please</strong> visit us.
+		sanitize(@subject.content, 
+			:tags => ['p','br','strong','em'],
+			:attributes => ['id','class','style'])
+
+540457. Asset pipeline
+	- Concatenates CSS and Javascript files
+	- Compresses and minifies CSS and JavaScript
+	- Precompile CSS and Javascript
+	- Allows writing assets in other languages
+	- Add asset fingerprinting
+	- Precompilation
+		export RAILS_ENV=production
+		bundle exec rails assets:precompile
+
+540458. Stylesheets
+	Location
+	- Asset pipeline: /app/assets/stylesheets
+	- Asset pipeling: /public/stylesheets
+	File name
+	- Should end in ".css"; Sass(Syntactically Awesome Stylesheets) files end in ".css.scss"
+	- app/assets/stylesheets/application.css
+		* require_tree .
+		*= require primary
+		*= require_self
+	- config/initializers/asset.rb
+		Rails.application.config.assets.precompile += %w( admin.css main.css )
+	- <%= stylesheet_link_tag('application', :media => 'all') %>
+
+540459. Javascript
+	Location
+	- Asset pipeline: /app/assets/javascripts
+	Manifest file
+	- /app/assets/javascripts/application.js
+	- config/initializers/asset.rb
+		Rails.application.config.assets.precompile += %w( admin.css main.js )
+	- <%= javascript_include_tag('application') %>
+	- <%= link_to('Roar', '#', :onclick => "jsRoar('Javascript'); return true;") %>
+
+540460. Javascript tag and sanitizing
+	<%= javascript_tag("alert('Are you sure?');") %>
+	<%= javascript_tag do %>
+		alert('Are you sure?');
+	<% end %>
+	- Use escape_javascript(), j()
+		<%= javascript_tag("alert('You said: #{j(text)}');") %>
+		#alert('You said: \'); alert(\'Gotcha!');
+
+540461. Images
+	Location
+	- asset pipeline: /app/assets/images
+	- Without asset pipeline: /public/images
+	- User-uploaded images: /public/images
+	Image upload gems
+	- Paperclip and CarrierWave
+	<%= image_tag('logo.png') %>
+	<%= image_tag('logo.png', :size => '90x55', :alt => 'logo') %>
+	<%= image_tag('logo.png', :width => 90, :height => 55) %>
+	From scss file
+	- background: $light_brown image-url('footer_gradient.png') repeat-y 0 0;
+
+540463. Form helpers
+	<%= text_field_tag('name', params[:name]) %>
+	<%= text_field(:subject, :name) %>
+	<%= f.text_field(:name) %>
+	f.label(:name)
+	f.text_field(:name, :size => 40, :maxlength => 40)
+	f.password_field(:password, :size => 40)
+	f.hidden_field(;token, 'abcdf0123456789')
+	f.text_area(:description, :size => "40x5") # :cols/:rows
+	f.radio_button(:content_type, "text")
+	f.radio_button(:content_type, "html")
+	f.check_box(:visible)
+	f.file_field(:logo) #require :multipart => true
+
+540464. Form options helpers
+	select(object, attribute, choices, options, html_options)
+	options:
+		:selected => object.attribute
+		:include_blank => false
+		:prompt => false
+		:disabled => false
+	form_for(@section) do |f|
+		#Range
+		f.select( :position, 1..5 )
+		#Array
+		f.select( :content_type, ['text', 'html'] )
+		#Hash
+		f.select( :visible, { "Visible" => 1, "Hidden" => 2 } )
+		#Array of arrays
+		f.select( :page_id, Page.all.map {|p| [p.name, p.id]} )
+	end
+
+540465.
+	date_select(object, attribute, options, html_options)
+	time_select(ojbect, attribute, options, html_options)
+	datetime_select(object, attribute, options, html_options)
