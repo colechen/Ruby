@@ -523,7 +523,121 @@
 		f.select( :page_id, Page.all.map {|p| [p.name, p.id]} )
 	end
 
-540465.
+540465. Date and time form helpers
 	date_select(object, attribute, options, html_options)
 	time_select(ojbect, attribute, options, html_options)
 	datetime_select(object, attribute, options, html_options)
+
+540466. Form errors
+	object.errors.clear
+	object.errors.size
+	object.errors.each { |attr, msg| ... }  # :name, "can't be blank"
+	object.errors.full_messages.each { |msg| ... }  # "Name can't be blank"
+
+	create app/views/application/_error_messages_html.erb
+	add a helper method in application_helper.rb to render partial page
+	call helper method inside the view page that need to display error
+	add validation to module, validates_presence_of :name
+	customize error field with css using <div class="field_with_errors">
+
+540467. Prevent cross-site request forgery (CSRF)
+	- authenticity_token is stored inside session cookie and each form as a hidden field to prevent other site to use GET (<img src="http://bank.com/transfer?amt=10000&to=hacker" />) to exploits user's currently logged-in state to perform actions which require authentication
+	- protect_from_foregery with: :exception   # ApplicationController
+	- GET should be read-only
+	- Actions that expects POST requests should only respond to POST requests
+	- CSRF Token of Javascript and Ajax: <%= csrf_meta_tag %>  MUST DO
+
+540469. Validation methods
+	validates_presence_of :name
+
+540470. Write validations
+	validates_length_of :name, :maximum => 255
+	validates_length_of :permalink, :within => 3..255
+	#every subject must have a unique permalink
+	validates_uniqueness_of :permalink :scope => :subject_id
+
+	#Validate Content type
+	CONTENT_TYPES = ['text', 'HTML']
+	validates_inclusion_of :content_type, :in => CONTENT_TYPES, :message => "must be one of: #{CONTENT_TYPES.join(', ')}"
+	validates_presence_of :content
+
+	#Validate Email
+	EMAIL_REGEX = /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\Z/i
+	validates_format_of :email, :with => EMAIL_REGEX
+	validates_confirmation_of :email
+	validates_presence_of :email
+	validates_length_of :email, maximum => 100
+
+	s = Subject.new
+	s.valida? #update the error
+	s.errors.full_messages
+
+540471. Validates method
+	validates :attribute, :presence => boolean,
+						:numericality => boolean,
+						:length => options_hash,  #{ :maximum => 50 }
+						:format => {:with => regex},
+						:inclusion => {:in => array_or_range},
+						:exclusion => {:in => array_or_range},
+						:acceptance => boolean,
+						:uniqueness => boolean,
+						:confirmation => boolean
+
+540472. Custom validations
+	#module class
+	validate :custom_method
+
+	private
+	def custom_method
+		if test_case
+			errors. add(:attribute, "message")
+		end
+	end
+
+	reload! #reload the validation u.valid?
+
+540474. Cookies
+	cookies[:username] = "jsmith"
+	cookies[:username] = {
+		:value => "jsmith",
+		:expires => 1.wee.from_now
+	}
+
+	<%= cookies[:username] %>
+
+	- Maximum data size: 4K (~4000 characters)
+	- do not store sensitive data, may be altered by user
+
+540475. Sessions
+	- session stored on server side
+	session[:username] = "jsmith"
+	<%= session[:username] %>
+	- Requires time to retrieve the session file
+	- super cookies
+	- Encrypted to prevent reading
+	- Signed to prevent tampering
+	- config/initializers/session_store.rb
+	- config/secrets.yml
+
+540476. Controller filters
+	before_action
+	before_action : find_subjects, :only => [:name, :create, :edit, :update]
+	after_action
+	around_action
+
+	skip_before_action
+
+	if params[:action] == 'new'
+		@page_count += 1
+	end
+
+540477. Logging (Application log)
+	log/development.rb
+	log/production.rb
+	log/test.rb
+
+	config/environments/development.rb
+	config.log_level = :debug
+
+	rails log:clear
+	logger.debug("The name is #{@subject.name}")
