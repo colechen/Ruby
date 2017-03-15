@@ -1,36 +1,43 @@
 540385. rails new simple_cms -d mysql
 
-540386. mysql -u root -p
+540386. File Structure of a project 
+	mysql -u root -p
 	CREATE DATABASE simple_cms_development;
 	CREATE DATABASE simple_cms_test;
 	GRANT ALL PRIVILEGES ON simple_cms_development.* TO 'rails_user'@'localhost' IDENTIFIED BY 'secretpassword';
 	GRANT ALL PRIVILEGES ON simple_cms_test.* TO 'rails_user'@'localhost' IDENTIFIED BY 'secretpassword';
 	exit;
 
-540387. database.yml -> specified the username and password
+540387. Configure a project
+	database.yml -> specified the username and password
 	Test Connection: rails db:schema:dump #get all the definition of database db/schema.rb
 
-540389. rails generate controller demo index
+540389. Generate a controller and view
+	rails generate controller demo index
 
-540391. Simple Route -> get "demo/index"
+540391. Routes
+	Simple Route -> get "demo/index"
 	Simple Match Route -> match "demo/index", :to => "demo#index", :via => :get
 	Default Route -> get ':controller(/:action(/:id))'
 	Default Match Route -> match ':controller(/:action(/:id))', :via =? :get
 	Root Route: root "demo#index"
 	Root Match Route: match "/", :to => "demo#index", :via => :get
 
-540394. render(:template => 'demo/hello')
+540394. Render a template
+	render(:template => 'demo/hello')
 	render('demo/hello') #if calling different controller, will need to specify demo
 	render('hello') #if calling in the same controller
 
 	rendering will render to template, not action in the controller
 
-540395. HTTP Redirect -> involve reloading, data will be gone, url change
+540395. Redirect actions
+	HTTP Redirect -> involve reloading, data will be gone, url change
 	redirect_to(:controller => 'demo', :action => 'index')
 	redirect_to(:action => 'index') #if calling in the same controller
 	redirect_to('http://lynda.com')
 
-540396. <% code %> #process ruby code, no output
+540396. View templates
+	<% code %> #process ruby code, no output
 	<%= code %> #output the end result
 	<% target = "world" %>  <%= "Hello #{target}" %>
 	<%= 3.times do |n|
@@ -40,7 +47,8 @@
 		<%= n %><br />
 	<% end %> #output 0, 1, 2 in browser
 
-540397. variable -> local variable
+540397. Instance variables
+	variable -> local variable
 	@instance_variable -> only way to pass from controller to view
 
 	@array = [1,2,3,4,5] #controller
@@ -48,12 +56,14 @@
 		<%= n %><br />
 	<% end %>
 
-540398. <%= link_to(text, target) %> #link_to is a helper method
+540398. Links
+	<%= link_to(text, target) %> #link_to is a helper method
 	<%= link_to("demo/index") %>
 	<%= link_to('hello', {:controller => 'demo', :action => 'index'}) %>
 	<%= link_to('hello', {:action => 'index'}) %>
 
-540399. Accessing Parameter Values -> params are always string
+540399. URL parameters
+	Accessing Parameter Values -> params are always string
 	params[:id]
 	params['id']
 
@@ -66,16 +76,19 @@
 
 	@page.to_i + 1 #convert string to integer
 
-540402. GRANT ALL PRIVILEGES ON db_name.* TO 'username'@'localhost' IDENTIFIED BY 'password';
+540402. Create a database
+	GRANT ALL PRIVILEGES ON db_name.* TO 'username'@'localhost' IDENTIFIED BY 'password';
 	SHOW GRANTS FOR 'username'@'localhost';
 
 	rails db:schema:dump
 
-540404. rails generate migration MigrationName (camel case)
+540404. Generate migrations
+	rails generate migration MigrationName (camel case)
 
 	migration file -> def up/down
 
-540405. rails genearte model ModuleName (camel case)
+540405. Generate models
+	rails genearte model ModuleName (camel case)
 	Table column Types: binary, boolean, date, datetime, decimal, float, integer, string, text, time
 	Table column options:
 		:limit => size
@@ -104,7 +117,8 @@
 		drop_table :users
 	end
 
-540406. rails db:migrate
+540406. Run migrations
+	rails db:migrate
 	mysql -u rails_user -p simple_cms_development
 	SHOW TABLES;
 	SHOW FIELDS FROM users;
@@ -116,7 +130,8 @@
 	rails db:migrate:up VERSION=XXXXXXXXXX
 	rails db:migratea:down VERSION=XXXXXXXXXX
 
-540407. rename_table(table, new_name)
+540407. Migration methods
+	rename_table(table, new_name)
 	add_column(table, column, type, options)
 	remove_column(table, column)
 	rename_column(table, column, new_name)
@@ -144,10 +159,12 @@
 	end
 
 
-540412. users = User.where(:first_name => "kevin")
+540412. ActionRecord and ActiveRelation
+	users = User.where(:first_name => "kevin")
 	users = Users.order("last_name ASC").limit(5)
 
-540413. rails genearte model SingularName (camel case)
+540413. Model naming
+	rails genearte model SingularName (camel case)
 	rails generate model Subject
 
 	class User < ApplicationRecord
@@ -164,12 +181,14 @@
 		end
 	end
 
-540415. rails console development
+540415. The Rails console
+	rails console development
 	rails console
 	rails c
 	irb  #interactive ruby console
 
-540416. rails console
+540416. Create records
+	rails console
 	subject = Subject.new #create a new instance of Subject class
 	subject.new_record? #true, has not been save to database yet
 	subject.name = "First Subject"
@@ -182,7 +201,8 @@
 
 	subject = Subject.create(:name => 'Second Subject', :position => 2)
 
-540417.	subject = Subject.find(1)
+540417.	Update records
+	subject = Subject.find(1)
 	subject.new_record? #false
 	subject.name = "Initial Subject"
 	subject.save #will fire an UPDATE statement
@@ -191,10 +211,12 @@
 	subject = Subject.find(2)
 	subject.update_attributes(:name => 'Next Subject', :visible => true)
 
-540418. subject = Subject.find(1)
+540418. Delete records
+	subject = Subject.find(1)
 	subject.destroy #will fire DELETE statement, still return current subject
 
-540419. Primary key finder -> Subject.find(2)   #Returns an object of an error
+540419. Find records
+	Primary key finder -> Subject.find(2)   #Returns an object of an error
 	Dynamic finders -> Subject.find_by_id(2)	#Returns an object or nil
 			Subject.find_by_name("First Subject")
 	Find all -> Subject.all #Returns an array of objects
@@ -206,7 +228,8 @@
 		puts subject.name
 	end
 
-540420. Subject.where(:vivible => true)
+540420. Query methods - Conditions
+	Subject.where(:vivible => true)
 	Subject.where("name='Test' AND visible=true")  #SQL injection
 	Subject.where(["name=? AND VISIBLE=true", "Test"]) #escaped SQL and safe
 	Subject.where({:name => "Test", :visible => true})   #Hash, join with AND
@@ -215,7 +238,8 @@
 	subjects.class
 	subjects.to_sql
 
-540421. Subject.order(:position).limit(20).offset(40)
+540421. Query methods - Order, limit, and offset
+	Subject.order(:position).limit(20).offset(40)
 	order(:position)
 	order("position")
 	order(:position => :asc)
@@ -227,7 +251,8 @@
 	subjects = Subject.limit(1).offset(2)
 	subjects = Subject.where(:visible => true). order("position ASC").limit(1).offset(1)
 
-540422. scope :active, lambda {where(:active => true)} #recommand lambda way
+540422. Named scopes
+	scope :active, lambda {where(:active => true)} #recommand lambda way
 	scope :active, -> {where(:active => true)}
 
 	def self.active    #class method way
@@ -260,13 +285,15 @@
 		scope :search, lambda {|query| where(["name LIKE ?", "%#{query}%"])} #%% wild card
 	end
 
-540425. For 1:1 relation (has_one, belongs_to), when making the association on objects, it does try to save the object to 		database
+540425. One-to-one associations
+	For 1:1 relation (has_one, belongs_to), when making the association on objects, it does try to save the object to 		database
 
 	Remove association -> subject.page = nil  #removes the association but does not remove the record
 
 	Destroy record -> subject.page.destroy
 
-540426. For 1:M relation (has_many, belongs_to),
+540426. One-to-many associations
+	For 1:M relation (has_many, belongs_to),
 
 	subject.pages << page
 	subject.pages = [page, page, page]
@@ -276,11 +303,13 @@
 	subject.pages.empty? #check if array is empty
 	subject.pages.size
 
-540427. page.errors.full_messages  #error saving page when page needs to belongs_to a subject
+540427. belongs_to presence validation
+	page.errors.full_messages  #error saving page when page needs to belongs_to a subject
 
 	belongs_to :subject, { :optional => true }  #save without parent (subject_id)
 
-540428. For M:N, require a join table with two foreign keys (simple join)
+540428. Many-to-many associations - Simple
+	For M:N, require a join table with two foreign keys (simple join)
 
 	Project has_and_belongs_to_many :collaborators
 
@@ -293,7 +322,8 @@
 	end
 	add_index("admin_users_pages", ["admin_user_id", "page_id"])
 
-540429. For M:N rich join (-ments, -ships)
+540429. Many-to-many associations - Rich
+	For M:N rich join (-ments, -ships)
 
 	create_table :section_edits do|t|
 		t.integer "admin_user_id"
@@ -313,13 +343,14 @@
 	edit.save
 	me.section_edits(true)   #reload from database
 
-540430. section.section_edits.map {|se| se.admin_user}
+540430. Travese a rich association
+	section.section_edits.map {|se| se.admin_user}
 
 	has_many :through
 	AdminUser has_many :section_edits
 	AdminUser has_many :sections, :through => :section_edits
 
-540435.
+540435. Resourceful URL helpers
 	GET		  /subjects						 	  index			subjects_path
 	GET		  /subjects/:id				 	  show			subject_path(:id)
 	GET		  /subjects/new				 	  new				new_subject_path
@@ -329,7 +360,7 @@
 	GET		  /subjects/:id/delete		delete		delete_subject_path(:id)
 	DELETE	/subjects/:id						destroy		subject_path(:id)
 
-540440.
+540440. Create actions - new
 	<%= form_for(@subject, :url => subject_path, :method => 'post') do |f| %>
 	<%= form_for(@subject) do |f| %>
 
@@ -338,7 +369,8 @@
 		@subject = Subject.new({:name => 'default'})
 	end
 
-540445. Flash hash -> will only be accessible for one additional request
+540445. Flash hash
+	Flash hash -> will only be accessible for one additional request
 	flash[:notice] = "The subject '#{@subject.name}' was created successfully"
 	flash[:error] = "Not enough access privileges"
 
