@@ -4,7 +4,7 @@
     It makes HTML and JavaScript easier to read and maintain
     **Cached JavaScript files can speed up page loads**
 
-- **Placing scripts at the bottom of the <body> element** improves the display speed, because script compilation slows down the display.
+- **Placing scripts at the bottom of the `<body>` element** improves the display speed, because script compilation slows down the display.
 
 - Using **document.write() after an HTML document** is fully **loaded**, will **delete all existing HTML**
 
