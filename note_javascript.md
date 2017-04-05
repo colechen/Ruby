@@ -21,3 +21,7 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
 
     // code here can use window.carName
 ```
+- [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
+- [x] list syntax required (any unordered or ordered list supported)
+- [x] this is a complete item
+- [ ] this is an incomplete item
