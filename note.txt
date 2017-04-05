@@ -29,7 +29,7 @@
 	render('hello') #if calling in the same controller
 
 	rendering will render to template, not action in the controller
-
+":"
 540395. Redirect actions
 	HTTP Redirect -> involve reloading, data will be gone, url change
 	redirect_to(:controller => 'demo', :action => 'index')
