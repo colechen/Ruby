@@ -16,8 +16,8 @@
 Empty an object by setting it to undefined -> Value is undefined, type is undefined
 
 - In HTML, the global scope is the window object. All global variables belong to the window object.
-```javascript
+<t>```javascript
 var carName = "Volvo";
 
 // code here can use window.carName
-```
+```</t>
