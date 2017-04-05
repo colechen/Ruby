@@ -6,4 +6,4 @@
 
 - <b>Placing scripts at the bottom of the <body> element</b> improves the display speed, because script compilation slows down the display.
 
-- <b>Using document.write() after an HTML document</b> is fully loaded, will <b>delete all existing HTML</b>
+- Using <b>document.write() after an HTML document</b> is fully <b>loaded</b>, will <b>delete all existing HTML</b>
