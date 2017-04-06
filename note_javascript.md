@@ -30,3 +30,14 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
     str = "Please visit Microsoft!";
     var n = str.replace(/Microsoft/g, "W3Schools");
     ```
+- Trying to do arithmetic with a non-numeric string will result in NaN (Not a Number). If the string contains a numeric value, the result will be a number.
+    ```javascript
+    var x = 100 / "Apple";  // x will be NaN (Not a Number)
+    var x = 100 / "10";     // x will be 10
+    
+    var x = 100 / "Apple";
+    isNaN(x);               // returns true because x is Not a Number 
+    
+    typeof Infinity;        // returns "number"
+    typeof NaN;             // returns "number"
+    ```
