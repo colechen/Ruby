@@ -48,7 +48,7 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
         return x.constructor.toString().indexOf("Array") > -1;
     }
     ```
-    OR
+    OR\n
     The instanceof operator returns true if an object is created by a given constructor
     ```javascript
     var fruits = ["Banana", "Orange", "Apple", "Mango"];
