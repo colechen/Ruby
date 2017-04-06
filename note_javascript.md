@@ -18,8 +18,15 @@
 Empty an object by setting it to undefined -> Value is undefined, type is undefined
 
 - In HTML, the global scope is the window object. All **global variables** belong to the **window object**.
-```javascript
+    ```javascript
     var carName = "Volvo";
     // code here can use window.carName
-```
+    ```
 
+- Comparing two different JavaScript objects will always return false.
+
+- By default, the string replace() function replaces only the first match. To replace all matches, use a regular expression with a g flag (for global match)
+    ```javascript
+    str = "Please visit Microsoft!";
+    var n = str.replace(/Microsoft/g, "W3Schools");
+    ```
