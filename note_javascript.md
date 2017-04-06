@@ -41,3 +41,16 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
     typeof Infinity;        // returns "number"
     typeof NaN;             // returns "number"
     ```
+
+- Array.isArray() (ECMAScript 5) is not supported in older browsers. To create your own isArray() function that returns true if the object prototype contains the word "Array".
+    ```javascript
+    function isArray(x) {
+        return x.constructor.toString().indexOf("Array") > -1;
+    }
+    ```
+    OR
+    The instanceof operator returns true if an object is created by a given constructor
+    ```javascript
+    var fruits = ["Banana", "Orange", "Apple", "Mango"];
+    fruits instanceof Array     // returns true
+    ```
