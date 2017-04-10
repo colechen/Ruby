@@ -62,8 +62,10 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
         {type:"Saab", year:2001},
         {type:"BMW", year:2010}];
         
+    //sort by numeric property
     cars.sort(function(a, b){return a.year - b.year});
     
+    //sort by string property
     cars.sort(function(a, b){
         var x = a.type.toLowerCase();
         var y = b.type.toLowerCase();
