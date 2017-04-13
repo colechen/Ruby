@@ -47,6 +47,8 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
     function isArray(x) {
         return x.constructor.toString().indexOf("Array") > -1;
     }
+    function isArraySimpler(x) {
+        return x.constructor === Array;
     ```
     OR<br />
     The instanceof operator returns true if an object is created by a given constructor
@@ -74,4 +76,32 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
         return 0;
     });
     ```
-    
+-   The data type of NaN is number<br />
+    The data type of an array is object<br />
+    The data type of a date is object<br />
+    The data type of null is object<br />
+    The data type of an undefined variable is **undefined**<br />
+    The data type of a variable that has not been assigned a value is also **undefined**<br />
+
+- Better and faster Code
+    ```javascript
+    var i;
+    var l = arr.length;
+    for (i = 0; i < l; i++) {
+    ```
+
+- **Add script** to the page **by code**, after the page has loaded
+    ```javascript
+    <script>
+    window.onload = function() {
+        var element = document.createElement("script");
+        element.src = "myScript.js";
+        document.body.appendChild(element);
+    };
+    </script>
+    ```
+- Constraint Validation DOM Methods
+    Property |	Description
+    -------- | -------------
+    checkValidity() | Returns true if an input element contains valid data.
+    setCustomValidity() | Sets the validationMessage property of an input element.
