@@ -1,4 +1,3 @@
-## Javascript Note from w3schools
 
 - Placing scripts in external files has some advantages:
 
