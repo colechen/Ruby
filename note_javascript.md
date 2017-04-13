@@ -100,8 +100,8 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
     };
     </script>
     ```
-- Constraint Validation DOM Methods
-    Property |	Description
-    -------- | -------------
-    checkValidity() | Returns true if an input element contains valid data.
-    setCustomValidity() | Sets the validationMessage property of an input element.
+- Constraint Validation DOM Methods<br />
+ Property | Description 
+ --- | ---
+ checkValidity() | Returns true if an input element contains valid data. 
+ setCustomValidity() | Sets the validationMessage property of an input element. 
