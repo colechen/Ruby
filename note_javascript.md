@@ -102,7 +102,8 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
     ```
     
     
-## Constraint Validation DOM Methods
+- Constraint Validation DOM Methods
+
   | Property | Description |
   | --- | --- |
   | checkValidity() | Returns true if an input element contains valid data. |
