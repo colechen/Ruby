@@ -183,3 +183,9 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
     >[running clock](https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_clearinterval)<br />
     >[change color continuously](https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_setinterval_clearinterval2) <br />
     >[progress bar](https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_setinterval_progressbar)<br />
+
+- Window setTimout() Method
+    ```javascript
+    setTimeout(function(){ alert("Hello"); }, 3000);
+    ```
+    [Windows Object List](https://www.w3schools.com/jsref/obj_window.asp)
