@@ -187,5 +187,21 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
 - Window setTimout() Method
     ```javascript
     setTimeout(function(){ alert("Hello"); }, 3000);
+    window.scrollTo(500,0);
+    window.blur();
     ```
     >[Windows Object List](https://www.w3schools.com/jsref/obj_window.asp)
+    
+- Add proprety and method to a Prototype
+    ```javascript
+    function Person(first, last, age, eyecolor) {
+        this.firstName = first;
+        this.lastName = last;
+        this.age = age;
+        this.eyeColor = eyecolor;
+    }
+    Person.prototype.nationality = "English";
+    Person.prototype.name = function() {
+        return this.firstName + " " + this.lastName;
+    }; 
+    ```
