@@ -188,4 +188,4 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
     ```javascript
     setTimeout(function(){ alert("Hello"); }, 3000);
     ```
-    [Windows Object List](https://www.w3schools.com/jsref/obj_window.asp)
+    >[Windows Object List](https://www.w3schools.com/jsref/obj_window.asp)
