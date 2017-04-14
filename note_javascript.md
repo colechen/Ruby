@@ -122,10 +122,64 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
 
     // the counter is now 3
     ```
-    >The variable add is assigned the return value of a self-invoking function.
-    >The self-invoking function only runs once. It sets the counter to zero (0), and returns a function expression.
-    >This way add becomes a function. The "wonderful" part is that it can access the counter in the parent scope.
-    >This is called a JavaScript closure. It makes it possible for a function to have "private" variables.
-    >The counter is protected by the scope of the anonymous function, and can only be changed using the add function.
+    >The variable add is assigned the return value of a self-invoking function.<br />
+    >The self-invoking function only runs once. It sets the counter to zero (0), and returns a function expression.<br />
+    >This way add becomes a function. The "wonderful" part is that it can access the counter in the parent scope.<br />
+    >This is called a JavaScript closure. It makes it possible for a function to have "private" variables.<br />
+    >The counter is protected by the scope of the anonymous function, and can only be changed using the add function.<br />
     
     `A closure is a function having access to the parent scope, even after the parent function has closed.`
+
+- Finding HTML Elements
+
+  | Method | Description |
+  | --- | --- |
+  | document.getElementById(id) |	Find an element by element id |
+  | document.getElementsByTagName(name) |	Find elements by tag name |
+  | document.getElementsByClassName(name) |	Find elements by class name |
+  | document.querySelectorAll(css selector) | Find element by CSS Selectors (i.e. p.intro) |
+  
+- Changing HTML Elements
+
+  | Method | Description |
+  | --- | --- |
+  | element.innerHTML =  new html content |	Change the inner HTML of an element | 
+  | element.attribute = new value |	Change the attribute value of an HTML element |
+  | element.setAttribute(attribute, value) |	Change the attribute value of an HTML element |
+  | element.style.property = new style |	Change the style of an HTML element |
+
+- Adding and Deleting Elements
+
+  | Method | Description |
+  | --- | --- |
+  | document.createElement(element) |	Create an HTML element |
+  | document.removeChild(element) |	Remove an HTML element |
+  | document.appendChild(element) |	Add an HTML element |
+  | document.replaceChild(element) | Replace an HTML element |
+  | document.write(text) |	Write into the HTML output stream |
+  
+- Adding Events Handlers
+
+  | Method | Description |
+  | --- | --- |
+  |  document.getElementById(id).onclick = function(){code} |	Adding event handler code to an onclick event |
+  
+- Write directly to the HTML output stream
+    ```javascript
+    document.write(Date());
+    ```
+    
+- Create the Animation Using JavaScript <br />
+    ```javascript
+    myVar = setInterval("javascript function", milliseconds);
+    clearInterval(myVar); //id_of_setinterval, The ID of the timer returned by the setInterval() method.
+    ```
+    >The clearInterval() method clears a timer set with the setInterval() method.<br />
+    >The ID value returned by setInterval() is used as the parameter for the clearInterval() method.<br />
+    >To be able to use the clearInterval() method, you must use a global variable when creating the interval method<br />
+    >Be able to stop the execution by calling the clearInterval() method.<br />
+    
+    >[moving object](https://www.w3schools.com/js/tryit.asp?filename=tryjs_dom_animate_3)<br />
+    >[running clock](https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_clearinterval)<br />
+    >[change color continuously](https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_setinterval_clearinterval2) <br />
+    >[progress bar](https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_setinterval_progressbar)<br />
