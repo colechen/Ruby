@@ -91,7 +91,7 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
     ```
 
 - **Add script** to the page **by code**, after the page has loaded
-    ```javascript
+    ```html
     <script>
     window.onload = function() {
         var element = document.createElement("script");
@@ -205,3 +205,87 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
         return this.firstName + " " + this.lastName;
     }; 
     ```
+
+- Dom Events<br />
+    https://www.w3schools.com/jsref/dom_obj_event.asp
+    
+- Dom EventListener <br />
+    ```javascript
+    //syntax: useCapture: bubble up (default), capture down
+    element.addEventListener(event, function, useCapture);
+
+    element.addEventListener("click", function(){ alert("Hello World!"); });
+    
+    element.addEventListener("click", myFunction);
+    function myFunction() {
+        alert ("Hello World!");
+    }
+    //Window Object
+    window.addEventListener("resize", function(){
+        document.getElementById("demo").innerHTML = sometext;
+    }); 
+    
+    element.removeEventListener("mousemove", myFunction);
+    ```
+    
+- Different way to retrieve node value
+    ```javascript
+     <title id="demo">DOM Tutorial</title> 
+     var myTitle = document.getElementById("demo").innerHTML; 
+     var myTitle = document.getElementById("demo").firstChild.nodeValue;
+     var myTitle = document.getElementById("demo").childNodes[0].nodeValue; 
+     ```
+
+- Add/remove HTML Elements (Nodes)
+    ```html
+    <div id="div1">
+    <p id="p1">This is a paragraph.</p>
+    <p id="p2">This is another paragraph.</p>
+    </div>
+
+    <script>//add
+    var para = document.createElement("p");
+    var node = document.createTextNode("This is new.");
+    para.appendChild(node);
+
+    var element = document.getElementById("div1");
+    element.appendChild(para);
+    //element.insertBefore(para, document.getElementById("p1");
+    </script>
+    
+    <script>//remove
+    var parent = document.getElementById("div1");
+    var child = document.getElementById("p1");
+    parent.removeChild(child);
+    //child.parentNode.removeChild(child); //short form
+    </script>
+    ```
+    
+- Replace HTML Elements
+    ```html
+    <div id="div1">
+    <p id="p1">This is a paragraph.</p>
+    <p id="p2">This is another paragraph.</p>
+    </div>
+
+    <script>
+    var para = document.createElement("p");
+    var node = document.createTextNode("This is new.");
+    para.appendChild(node);
+
+    var parent = document.getElementById("div1");
+    var child = document.getElementById("p1");
+    parent.replaceChild(para, child);
+    </script>
+    ```
+    
+- Window Object
+    ```javascript
+    //window size
+    var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight; 
+    ```
+    >window.open() - open a new window <br />
+    >window.close() - close the current window <br />
+    >window.moveTo() -move the current window <br />
+    >window.resizeTo() -resize the current window <br />
