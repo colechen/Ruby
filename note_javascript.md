@@ -289,3 +289,45 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
     >window.close() - close the current window <br />
     >window.moveTo() -move the current window <br />
     >window.resizeTo() -resize the current window <br />
+
+- Window Location <br />
+    window.location.href returns the href (URL) of the current page <br />
+    window.location.hostname returns the domain name of the web host <br />
+    window.location.pathname returns the path and filename of the current page <br />
+    window.location.protocol returns the web protocol used (http: or https:) <br />
+    window.location.assign loads a new document <br />
+    
+- Window History <br />
+    window.history.back() <br />
+    window.history.forward() <br />
+
+- Window Navigator <br />
+    window.navigator.cookieEnabled <br />
+    window.navigator.userAgent //returns the user-agent header sent by the browser to the server <br />
+    window.navigator.platform <br />
+    window.navigator.language <br />
+    window.navigator.javaEnabled() <br />
+
+- JavaScript Popup Boxes
+    ```javascript
+    window.alert("I am an alert box!");
+    
+    function myConfirm() {
+        var x;
+        if (window.confirm("Press a button!") == true) {
+            x = "You pressed OK!";
+        } else {
+            x = "You pressed Cancel!";
+        }
+        document.getElementById("demo").innerHTML = x;
+    }
+    
+    function myPrompt() {
+        var person = prompt("Please enter your name", "Harry Potter");
+
+        if (person != null) {
+            document.getElementById("demo").innerHTML =
+            "Hello " + person + "! How are you today?";
+        }
+    }
+    ```
