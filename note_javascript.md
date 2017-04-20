@@ -331,3 +331,178 @@ Empty an object by setting it to undefined -> Value is undefined, type is undefi
         }
     }
     ```
+
+- JavaScript Cookies
+    ```javascript
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function checkCookie() {
+        var user = getCookie("username");
+        if (user != "") {
+            alert("Welcome again " + user);
+        } else {
+            user = prompt("Please enter your name:", "");
+            if (user != "" && user != null) {
+                setCookie("username", user, 365);
+            }
+        }
+    }
+    ```
+
+- AJAX (Asynchronous Javascript And XML<br />
+    Note: The onreadystatechange function is called every time the readyState changes.
+    ```html
+    <script>
+    function loadDocGet() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("demo").innerHTML =
+          this.responseText;
+        }
+      };
+      xhttp.open("GET", "ajax_info.txt", true);
+      xhttp.send();
+    }
+    
+    function loadDocPost() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("demo").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("POST", "demo_post2.asp", true);
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//To POST data like an HTML form
+      xhttp.send("fname=Henry&lname=Ford");
+    }
+    
+    function loadDocAsyncFalse() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.open("GET", "ajax_info.txt", false); //async is false. call will be synchronous and wait for response
+      xhttp.send();
+      document.getElementById("demo").innerHTML = xhttp.responseText;
+    }
+    </script>
+    ```
+    ```html
+    //define function ajax call
+    <button type="button"
+    onclick="loadDoc('ajax_info.txt', myFunction)">Change Content
+    </button>
+    
+
+    <script>
+    function loadDoc(url, cFunction) {
+      var xhttp;
+      xhttp=new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          cFunction(this);
+        }
+      };
+      xhttp.open("GET", url, true);
+      xhttp.send();
+    }
+    function myFunction(xhttp) {
+      document.getElementById("demo").innerHTML =
+      xhttp.responseText;
+    }
+    </script>
+    ```
+    ```html
+    <script>
+    //parse the response as an XML DOM object
+    var xhttp, xmlDoc, txt, x, i;
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      xmlDoc = this.responseXML;
+      txt = "";
+      x = xmlDoc.getElementsByTagName("ARTIST");
+      for (i = 0; i < x.length; i++) {
+        txt = txt + x[i].childNodes[0].nodeValue + "<br>";
+      }
+      document.getElementById("demo").innerHTML = txt;
+      }
+    };
+    xhttp.open("GET", "cd_catalog.xml", true);
+    xhttp.send();
+    </script>
+    ```
+    ```html
+    <script>
+    //getAllResponseHeaders()
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("demo").innerHTML =
+        this.getAllResponseHeaders();
+      }
+    };
+    xhttp.open("GET", "ajax_info.txt", true);
+    xhttp.send();
+    </script>
+    ```
+    ```html
+    //getResponseHeader()
+    <script>
+    var xhttp=new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("demo").innerHTML =
+        this.getResponseHeader("Last-Modified");
+      }
+    };
+    xhttp.open("GET", "ajax_info.txt", true);
+    xhttp.send();
+    </script>
+    ```
+    >Example for xml parsing: https://www.w3schools.com/js/tryit.asp?filename=tryjs_ajax_xml2
+    >Other examples: https://www.w3schools.com/js/js_ajax_examples.asp
+    
+- XMLHttpRequest Object Methods
+
+    Method | Description
+    --- | ---
+    new XMLHttpRequest() | Creates a new XMLHttpRequest object
+    abort() | Cancels the current request
+    getAllResponseHeaders() | Returns header information
+    getResponseHeader() | Returns specific header information
+    open(method, url, async, user, psw) | Specifies the request<br />method: the request type GET or POST<br />url: the file location<br />async: true (asynchronous) or false (synchronous)<br />user: optional user name<br />psw: optional password
+    send() | Sends the request to the server<br /> Used for GET requests
+    send(string) | Sends the request to the server.<br /> Used for POST requests
+    setRequestHeader() | Adds a label/value pair to the header to be sent
+    
+- XMLHttpRequest Object Properties
+
+    Property |	Description
+    --- | ---
+    onreadystatechange |	Defines a function to be called when the readyState property changes
+    readyState |	Holds the status of the XMLHttpRequest.<br />0: request not initialized<br />1: server connection established<br />2: request received<br />3: processing request<br />4: request finished and response is ready
+    responseText |	Returns the response data as a string
+    responseXML |	Returns the response data as XML data
+    status |	Returns the status-number of a request<br />200: "OK"<br />403: "Forbidden"<br />404: "Not Found"<br />For a complete list go to the Http Messages Reference
+    statusText |	Returns the status-text (e.g. "OK" or "Not Found")
+    
+- 
