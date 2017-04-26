@@ -292,6 +292,15 @@
 
 	Destroy record -> subject.page.destroy
 
+	*To associate multiple column (ticket) to the same table (user)* <br />
+	In Ticket:
+	belongs_to :requestor, :class_name => 'User', :foreign_key => 'requestor_user_id'
+	belongs_to :resource, :class_name => 'User', :foreign_key => 'resource_user_id'
+	
+	In User:
+	has_many :as_ticket_requestor, :class_name => 'Ticket', :foreign_key => 'requestor_user_id'
+	has_many :as_ticket_resource, :class_name => 'Ticket', :foreign_key => 'resource_id'
+
 540426. One-to-many associations
 	For 1:M relation (has_many, belongs_to),
 
