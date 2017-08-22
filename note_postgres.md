@@ -1,23 +1,23 @@
-*** Install Postgres
+### Install Postgres
 ```shell
 brew install postgresql
 ```
-*** Start Postgress
+### Start Postgress
 ```shell
 pg_ctl -D /usr/local/var/postgres start \\no background process
 brew services start postgresql \\start as startup service
 postgres -V
 ```
-*** Command Line
+### Command Line
 ```shell
 psql postgres
 ```
-*** List all roles
+### List all roles
 ```shell
 postgres=# \du
 ```
 
-*** Create User
+### Create User
 1. Create with psql
 ```shell
 postgres=# CREATE ROLE patrick WITH LOGIN PASSWORD 'Getting started';
@@ -31,7 +31,7 @@ postgres=# \q # quits
 createuser patrick //or createuser patrick --createdb
 ```
 
-*** Create a Database
+### Create a Database
 1. Create database with psql
 ```shell
 psql postgres -U patrick
@@ -47,7 +47,7 @@ postgres=> \q
 createdb super_awesome_application -U patrick
 ```
 
-*** Reference:
+### Reference:
 Popular GUI
 1. Postico (https://eggerapps.at/postico/download/)
 2. pgAdmin (https://www.pgadmin.org/download/macos4.php) - Oldest, pgAdmin is capable of handling advanced cases that Postico cannot.
