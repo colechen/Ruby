@@ -10,6 +10,7 @@ To process more requests concurrently, your app server must support clustering: 
 The most efficient way to tackle slow I/O is multithreading. A worker process spawns several worker threads inside of it. Each request is handled by one of those threads, but when it pauses for I/O - like waiting on a db query - another thread starts its work. This rapid back & forth makes best use of your RAM limitations, and keeps your CPU busy.
 
 ### Nginx + Puma + Postgres
+https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04
 1. Create Rails Application
 ```shell
 rails new appname -d postgresql
@@ -137,6 +138,7 @@ nginx
 3. rbenv-var did not work as expected, use global variable instead
 
 ### To config Nginx with ssl
+https://letsencrypt.org/getting-started/
 ```
 upstream app {
         unix:/home/deploy/appname/shared/sockets/puma.sock fail_timeout=0;
