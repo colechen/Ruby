@@ -51,8 +51,8 @@ RAILS_ENV=production rails s --binding=server_public_IP    // bind it to the pub
 
 6. Configure Puma
 
-    //look up the number of CPU cores your server has on Ubuntu
     ```shell
+    //look up the number of CPU cores your server has on Ubuntu
     grep -c processor /proc/cpuinfo
     vi config/puma.rb    //edit puma
     ```
@@ -87,8 +87,8 @@ RAILS_ENV=production rails s --binding=server_public_IP    // bind it to the pub
       ActiveRecord::Base.establish_connection(YAML.load_file("#{app_dir}/config/database.yml")[rails_env])
     end
     ```
-    //Create necessary directory
     ```
+    //Create necessary directory
     mkdir -p shared/pids shared/sockets shared/log
     ```
 7. Install and Configure Nginx
@@ -129,3 +129,4 @@ server {
 nginx -s stop
 nginx
 ```
+http://server_public_IP/tasks
