@@ -51,46 +51,46 @@ RAILS_ENV=production rails s --binding=server_public_IP    // bind it to the pub
 
 6. Configure Puma
 
-    ```shell
-    //look up the number of CPU cores your server has on Ubuntu
-    grep -c processor /proc/cpuinfo
-    vi config/puma.rb    //edit puma
-    ```
-    ```
-    # Change to match your CPU core count
-    workers 2   <--- Change the workers to number of processor
+```shell
+//look up the number of CPU cores your server has on Ubuntu
+grep -c processor /proc/cpuinfo
+vi config/puma.rb    //edit puma
+```
+```
+# Change to match your CPU core count
+workers 2   <--- Change the workers to number of processor
 
-    # Min and Max threads per worker
-    threads 1, 6
+# Min and Max threads per worker
+threads 1, 6
 
-    app_dir = File.expand_path("../..", __FILE__)
-    shared_dir = "#{app_dir}/shared"
+app_dir = File.expand_path("../..", __FILE__)
+shared_dir = "#{app_dir}/shared"
 
-    # Default to production
-    rails_env = ENV['RAILS_ENV'] || "production"
-    environment rails_env
+# Default to production
+rails_env = ENV['RAILS_ENV'] || "production"
+environment rails_env
 
-    # Set up socket location
-    bind "unix://#{shared_dir}/sockets/puma.sock"
+# Set up socket location
+bind "unix://#{shared_dir}/sockets/puma.sock"
 
-    # Logging
-    stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
+# Logging
+stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
 
-    # Set master PID and state locations
-    pidfile "#{shared_dir}/pids/puma.pid"
-    state_path "#{shared_dir}/pids/puma.state"
-    activate_control_app
+# Set master PID and state locations
+pidfile "#{shared_dir}/pids/puma.pid"
+state_path "#{shared_dir}/pids/puma.state"
+activate_control_app
 
-    on_worker_boot do
-      require "active_record"
-      ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
-      ActiveRecord::Base.establish_connection(YAML.load_file("#{app_dir}/config/database.yml")[rails_env])
-    end
-    ```
-    ```
-    //Create necessary directory
-    mkdir -p shared/pids shared/sockets shared/log
-    ```
+on_worker_boot do
+  require "active_record"
+  ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
+  ActiveRecord::Base.establish_connection(YAML.load_file("#{app_dir}/config/database.yml")[rails_env])
+end
+```
+```
+//Create necessary directory
+mkdir -p shared/pids shared/sockets shared/log
+```
 7. Install and Configure Nginx
 ```
 brew install nginx
