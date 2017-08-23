@@ -1,7 +1,0 @@
-580964. Create a database
-	Create a database user - GRANT ALL PRIVILEGES ON *.* TO 'rails_user'@'localhost' IDENTIFIED BY 'secretpassword';
-	Create project - rails new demo_project -d mysql
-	Set up project database - config/database.yml - overwirte username/password
-	Create database - rails db:create
-
-580965. 
