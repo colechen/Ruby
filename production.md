@@ -124,8 +124,8 @@ server {
     keepalive_timeout 10;
 }
 ```
-    //stop and start nginx server
 ```
+//stop and start nginx server
 nginx -s stop
 nginx
 ```
