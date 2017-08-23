@@ -129,4 +129,47 @@ server {
 nginx -s stop
 nginx
 ```
-http://server_public_IP/tasks
+8. Verify in browser http://server_public_IP/tasks
+
+### Trouble shooting
+1. Start nginx then puma
+2. shared/puma.stdout.log //check if there is any connection error (i.e. db connection, role does not exist)
+3. rbenv-var did not work as expected, use global variable instead
+
+### To config Nginx with ssl
+```
+upstream app {
+        unix:/home/deploy/appname/shared/sockets/puma.sock fail_timeout=0;
+     }
+
+server {
+        listen       9080;
+        server_name  123.123.123.123;
+        rewrite ^(.*)$  https://$host$1 permanent;
+}
+
+# HTTPS server
+    server {
+        listen       443 ssl;
+        server_name  123.123.123.123;
+
+        ssl_certificate      /root/server.crt;
+        ssl_certificate_key  /root/server.key;
+
+        ssl_session_cache    shared:SSL:1m;
+        ssl_session_timeout  5m;
+
+        ssl_protocols  SSLv2 SSLv3 TLSv1;
+        ssl_ciphers  HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers  on;
+
+        root /home/deploy/appname/public;
+
+        location / {
+            proxy_pass http://app; # match the name of upstream directive which is defined above
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+    }
+```
