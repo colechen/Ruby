@@ -132,11 +132,6 @@ nginx
 ```
 8. Verify in browser http://server_public_IP/tasks
 
-### Trouble shooting
-1. Start nginx then puma
-2. shared/puma.stdout.log //check if there is any connection error (i.e. db connection, role does not exist)
-3. rbenv-var did not work as expected, use global variable instead
-
 ### To config Nginx with ssl
 https://letsencrypt.org/getting-started/
 ```
@@ -175,3 +170,9 @@ server {
 
     }
 ```
+
+
+### Trouble shooting
+1. Start nginx before starting puma
+2. shared/puma.stdout.log //check if there is any connection error (i.e. db connection, role does not exist)
+3. rbenv-var did not work as expected, use global variable instead
